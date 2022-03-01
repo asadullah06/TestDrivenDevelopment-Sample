@@ -1,7 +1,6 @@
 package com.example.testdrivendevelopment_sample.exampleOne;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +40,7 @@ public class PingServerSyncUseCaseTest {
         assertTrue(true);
     }
     private void success() {
-        when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.GENERAL_ERROR);
+        when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.SUCCESS);
     }
 
 
