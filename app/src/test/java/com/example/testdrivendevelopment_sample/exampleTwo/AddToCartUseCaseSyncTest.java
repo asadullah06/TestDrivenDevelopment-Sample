@@ -59,4 +59,6 @@ public class AddToCartUseCaseSyncTest {
     private void success() throws NetworkErrorException {
         when(addToCartHttpEndpointSyncMock.addToCartSync(any(CartItemScheme.class))).thenReturn(EndpointResult.SUCCESS);
     }
+
+
 }

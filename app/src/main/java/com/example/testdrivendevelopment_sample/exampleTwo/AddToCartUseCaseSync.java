@@ -25,6 +25,8 @@ public class AddToCartUseCaseSync {
         try {
             EndpointResult result = addToCartHttpEndpointSync.addToCartSync(new CartItemScheme(offerId, amount));
 
+            if (result == EndpointResult.SUCCESS)
+                return UseCaseResult.SUCCESS;
         } catch (NetworkErrorException e) {
             e.printStackTrace();
         }
