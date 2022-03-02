@@ -7,7 +7,8 @@ public interface AddToCartHttpEndpointSync {
     enum EndpointResult {
         SUCCESS,
         AUTH_ERROR,
-        GENERAL_ERROR
+        GENERAL_ERROR,
+        UNKNOWN_ERROR
     }
 
 }
