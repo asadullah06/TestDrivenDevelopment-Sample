@@ -72,6 +72,14 @@ public class AddToCartUseCaseSyncTest {
         MatcherAssert.assertThat(result, is(AddToCartUseCaseSync.UseCaseResult.FAILURE));
     }
 
+    @Test
+    public void addToCartSync_networkError_networkErrorReturned() throws NetworkErrorException {
+        networkError();
+        AddToCartUseCaseSync.UseCaseResult result = SUT.addToCartSync(OFFER_ID,AMOUNT);
+
+        MatcherAssert.assertThat(result, is(AddToCartUseCaseSync.UseCaseResult.NETWORK_ERROR));
+    }
+
     private void success() throws NetworkErrorException {
         when(addToCartHttpEndpointSyncMock.addToCartSync(any(CartItemScheme.class))).thenReturn(EndpointResult.SUCCESS);
     }
@@ -82,6 +90,10 @@ public class AddToCartUseCaseSyncTest {
 
     private void generalError() throws NetworkErrorException {
         when(addToCartHttpEndpointSyncMock.addToCartSync(any(CartItemScheme.class))).thenReturn(EndpointResult.GENERAL_ERROR);
+    }
+
+    private void networkError() throws NetworkErrorException {
+        when(addToCartHttpEndpointSyncMock.addToCartSync(any(CartItemScheme.class))).thenThrow(new NetworkErrorException());
     }
 
 }
