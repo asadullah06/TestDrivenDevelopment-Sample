@@ -29,6 +29,8 @@ public class AddToCartUseCaseSync {
                 return UseCaseResult.SUCCESS;
             else if (result == EndpointResult.AUTH_ERROR)
                 return UseCaseResult.FAILURE;
+            else if (result == EndpointResult.GENERAL_ERROR)
+                return UseCaseResult.FAILURE;
         } catch (NetworkErrorException e) {
             e.printStackTrace();
         }
