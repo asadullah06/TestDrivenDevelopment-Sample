@@ -11,7 +11,7 @@ public class PingServerSyncUseCase {
         SUCCESS
     }
 
-    private PingServerHttpEndpointSync pingServerHttpEndpointSync;
+    private final PingServerHttpEndpointSync pingServerHttpEndpointSync;
 
     PingServerSyncUseCase(PingServerHttpEndpointSync pingServerHttpEndpointSync) {
         this.pingServerHttpEndpointSync = pingServerHttpEndpointSync;
@@ -22,6 +22,8 @@ public class PingServerSyncUseCase {
         EndpointResult result = pingServerHttpEndpointSync.pingServerSync();
         if (result == EndpointResult.SUCCESS)
             return UseCaseResult.SUCCESS;
+        else if (result == EndpointResult.GENERAL_ERROR)
+            return UseCaseResult.FAILURE;
         else return null;
     }
 }
