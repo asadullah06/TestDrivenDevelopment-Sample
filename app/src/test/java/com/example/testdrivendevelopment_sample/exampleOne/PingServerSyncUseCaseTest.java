@@ -44,12 +44,24 @@ public class PingServerSyncUseCaseTest {
         MatcherAssert.assertThat(result, is(UseCaseResult.FAILURE));
     }
 
+    @Test
+    public void pingServerSync_networkError_failureReturned() {
+        networkError();
+        UseCaseResult result = SUT.pingServer();
+
+        MatcherAssert.assertThat(result, is(UseCaseResult.FAILURE));
+    }
+
     private void success() {
         when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.SUCCESS);
     }
 
     private void generalError() {
         when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.GENERAL_ERROR);
+    }
+
+    private void networkError() {
+        when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.NETWORK_ERROR);
     }
 
 }
