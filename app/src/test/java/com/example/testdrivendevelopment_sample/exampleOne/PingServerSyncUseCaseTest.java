@@ -1,9 +1,9 @@
 package com.example.testdrivendevelopment_sample.exampleOne;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import com.example.testdrivendevelopment_sample.exampleOne.PingServerSyncUseCase.UseCaseResult;
 import com.example.testdrivendevelopment_sample.exampleOne.networking.PingServerHttpEndpointSync;
 
 import org.hamcrest.MatcherAssert;
@@ -28,20 +28,28 @@ public class PingServerSyncUseCaseTest {
         success();
     }
 
+
     @Test
     public void pingServerSync_success_successReturned() {
-        PingServerSyncUseCase.UseCaseResult result = SUT.pingServer();
+        UseCaseResult result = SUT.pingServer();
 
-        MatcherAssert.assertThat(result, is(PingServerSyncUseCase.UseCaseResult.SUCCESS));
+        MatcherAssert.assertThat(result, is(UseCaseResult.SUCCESS));
     }
 
     @Test
-    public void testing(){
-        assertTrue(true);
+    public void pingServerSync_generalError_failureReturned() {
+        generalError();
+        UseCaseResult result = SUT.pingServer();
+
+        MatcherAssert.assertThat(result, is(UseCaseResult.FAILURE));
     }
+
     private void success() {
         when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.SUCCESS);
     }
 
+    private void generalError() {
+        when(pingServerHttpEndpointSyncMock.pingServerSync()).thenReturn(PingServerHttpEndpointSync.EndpointResult.GENERAL_ERROR);
+    }
 
 }
