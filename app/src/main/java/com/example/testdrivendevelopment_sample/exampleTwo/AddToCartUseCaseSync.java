@@ -33,6 +33,7 @@ public class AddToCartUseCaseSync {
                 return UseCaseResult.FAILURE;
         } catch (NetworkErrorException e) {
             e.printStackTrace();
+            return UseCaseResult.NETWORK_ERROR;
         }
         return null;
     }
