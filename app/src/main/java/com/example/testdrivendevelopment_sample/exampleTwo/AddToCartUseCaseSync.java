@@ -22,20 +22,25 @@ public class AddToCartUseCaseSync {
 
     public UseCaseResult addToCartSync(String offerId, int amount) {
 
-        try {
-            EndpointResult result = addToCartHttpEndpointSync.addToCartSync(new CartItemScheme(offerId, amount));
+        EndpointResult result;
 
-            if (result == EndpointResult.SUCCESS)
-                return UseCaseResult.SUCCESS;
-            else if (result == EndpointResult.AUTH_ERROR)
-                return UseCaseResult.FAILURE;
-            else if (result == EndpointResult.GENERAL_ERROR)
-                return UseCaseResult.FAILURE;
+        try {
+            result = addToCartHttpEndpointSync.addToCartSync(new CartItemScheme(offerId, amount));
+
         } catch (NetworkErrorException e) {
             e.printStackTrace();
             return UseCaseResult.NETWORK_ERROR;
         }
-        return null;
+
+        switch (result) {
+            case SUCCESS:
+                return UseCaseResult.SUCCESS;
+            case AUTH_ERROR:
+            case GENERAL_ERROR:
+                return UseCaseResult.FAILURE;
+            default:
+                throw new RuntimeException("invalid endpoint result: " + result);
+        }
     }
 
 }
