@@ -20,12 +20,16 @@ public class PingServerSyncUseCase {
 
     public UseCaseResult pingServer() {
         EndpointResult result = pingServerHttpEndpointSync.pingServerSync();
-        if (result == EndpointResult.SUCCESS)
-            return UseCaseResult.SUCCESS;
-        else if (result == EndpointResult.GENERAL_ERROR)
-            return UseCaseResult.FAILURE;
-        else if (result == EndpointResult.NETWORK_ERROR)
-            return UseCaseResult.FAILURE;
-        else return null;
+
+
+        switch (result) {
+            case SUCCESS:
+                return UseCaseResult.SUCCESS;
+            case GENERAL_ERROR:
+            case NETWORK_ERROR:
+                return UseCaseResult.FAILURE;
+            default:
+                throw new RuntimeException("Invalid result " + result);
+        }
     }
 }
