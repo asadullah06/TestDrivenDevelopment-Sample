@@ -24,6 +24,8 @@ public class PingServerSyncUseCase {
             return UseCaseResult.SUCCESS;
         else if (result == EndpointResult.GENERAL_ERROR)
             return UseCaseResult.FAILURE;
+        else if (result == EndpointResult.NETWORK_ERROR)
+            return UseCaseResult.FAILURE;
         else return null;
     }
 }
